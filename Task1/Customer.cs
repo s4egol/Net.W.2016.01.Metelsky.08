@@ -27,6 +27,9 @@ namespace Task1
 
         public string ToString(string format)
         {
+            if (ReferenceEquals(format, null))
+                format = "G";
+
             return this.ToString(format, CultureInfo.CurrentCulture);
         }
 
@@ -34,6 +37,7 @@ namespace Task1
         {
             if (ReferenceEquals(format, null))
                 format = "G";
+
             if (ReferenceEquals(formatProvider, null))
                 formatProvider = CultureInfo.CurrentCulture;
 
@@ -41,7 +45,7 @@ namespace Task1
             {
                 case "G":
                 case "NPR":
-                    return Name.ToString(formatProvider) + " , " + ContactPhone.ToString(formatProvider) + " , " + Revenue.ToString("G", formatProvider);
+                    return $"{Name.ToString(formatProvider)} , {ContactPhone.ToString(formatProvider)} , {Revenue.ToString("G", formatProvider)}";
                 case "N":
                     return Name.ToString(formatProvider);
                 case "P":
@@ -49,13 +53,13 @@ namespace Task1
                 case "R":
                     return Revenue.ToString("G", formatProvider);
                 case "NP":
-                    return Name.ToString(formatProvider) + " , " + ContactPhone.ToString(formatProvider);
+                    return $"{Name.ToString(formatProvider)} , {ContactPhone.ToString(formatProvider)}";
                 case "PR":
-                    return ContactPhone.ToString(formatProvider) + " , " + Revenue.ToString("G", formatProvider);
+                    return $"{ContactPhone.ToString(formatProvider)} , {Revenue.ToString("G", formatProvider)}";
                 case "NR":
-                    return Name.ToString(formatProvider) + " , " + Revenue.ToString("G", formatProvider);
+                    return $"{Name.ToString(formatProvider)} , {Revenue.ToString("G", formatProvider)}";
                 default:
-                    throw new FormatException(String.Format("The {0} format string isn't supported", format));
+                    throw new FormatException(String.Format($"The {format} format string isn't supported"));
             }
         }
     }
